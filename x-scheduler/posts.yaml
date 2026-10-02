@@ -1,0 +1,23 @@
+# Scheduled X posts.
+#
+# Each entry needs `at` (ISO 8601 time WITH a timezone offset) and either
+# `text` (a single post) or `thread` (a list of posts sent as a reply chain).
+# Max 280 characters per post on a standard account.
+#
+# The scheduler fills in `status`, `posted_at` and `ids` after it runs;
+# don't add those yourself. To re-send a post, delete those fields.
+#
+# Example:
+#
+# - at: 2026-10-05T09:00:00-04:00
+#   text: Something new is coming from YN Studios. Stay tuned.
+#
+# - at: 2026-10-06T12:30:00-04:00
+#   thread:
+#     - Here's how we rebuilt our site from scratch 🧵
+#     - Step 1: ...
+#     - Step 2: ...
+
+posts:
+- at: 2026-10-02T18:30:00Z
+  text: Testing my post scheduler 🚀
