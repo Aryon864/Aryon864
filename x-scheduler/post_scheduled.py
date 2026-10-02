@@ -56,6 +56,15 @@ def parse_at(value):
     return dt
 
 
+def weighted_len(text):
+    """Length as X counts it: most CJK, emoji and symbols count as 2."""
+    n = 0
+    for c in text:
+        o = ord(c)
+        n += 1 if o <= 4351 or 8192 <= o <= 8205 or 8208 <= o <= 8223 or 8242 <= o <= 8247 else 2
+    return n
+
+
 def texts_of(post):
     if "thread" in post:
         return [str(t) for t in post["thread"]]
@@ -80,8 +89,8 @@ def validate(posts):
         if not texts or not all(t.strip() for t in texts):
             errors.append(f"{where}: empty post text")
         for t in texts:
-            if len(t) > MAX_CHARS:
-                errors.append(f"{where}: {len(t)} chars (max {MAX_CHARS}): {t[:40]}...")
+            if weighted_len(t) > MAX_CHARS:
+                errors.append(f"{where}: {weighted_len(t)} chars (max {MAX_CHARS}): {t[:40]}...")
     return errors
 
 

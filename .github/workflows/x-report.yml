@@ -1,11 +1,7 @@
 name: X account report
 
 on:
-  workflow_dispatch:
-  push:
-    paths:
-      - "x-scheduler/account_report.py"
-      - ".github/workflows/x-report.yml"
+  workflow_dispatch: # run from the Actions tab; each run reads up to 100 posts (~$0.50)
 
 jobs:
   report:
