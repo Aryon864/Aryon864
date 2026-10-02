@@ -34,87 +34,115 @@ posts:
   posted_at: '2026-10-02T18:28:01+00:00'
   ids:
   - '2106088831720251648'
-- at: 2026-10-03T20:00:00+05:30
+- at: 2026-10-03 20:00:00+05:30
   thread:
-  - |-
-    Had a client book a call last month.
+  - 'Had a client book a call last month.
 
-    Agreed to the scope. Agreed to the price. Agreed to the timeline. Even said "you're the expert, we trust you."
+
+    Agreed to the scope. Agreed to the price. Agreed to the timeline. Even said "you''re the expert, we trust you."
+
 
     Easiest call ever.
 
-    Then the invoice got paid 🧵
-  - |-
-    Day 1: "quick question"
+
+    Then the invoice got paid 🧵'
+  - 'Day 1: "quick question"
+
     Day 2: three voice notes at 11 PM
+
     Day 4: "can we also get a 15 sec cut for reels? should be quick"
+
     Day 6: "just checking in" every two hours
 
-    Somewhere between the call and the payment, I stopped being their studio and became their employee.
-  - |-
-    They weren't a bad client. And honestly, it's almost always the average-ticket ones.
 
-    Big clients have processes. Small ones know you're doing them a favor.
+    Somewhere between the call and the payment, I stopped being their studio and became their employee.'
+  - 'They weren''t a bad client. And honestly, it''s almost always the average-ticket ones.
 
-    The ones in the middle? They think they bought you, not the project.
-  - |-
-    What we changed at YN Studios:
+
+    Big clients have processes. Small ones know you''re doing them a favor.
+
+
+    The ones in the middle? They think they bought you, not the project.'
+  - 'What we changed at YN Studios:
+
 
     - one feedback doc, one round per stage
+
     - replies within 24h, weekdays only
+
     - "quick additions" get a quote, not a yes
+
     - boundaries go in the contract, not the DMs
+
 
     Your time is part of the price.
 
-    What's the wildest "quick question" you've gotten?
-- at: 2026-10-02T20:25:00Z
-  text: |-
-    Hi, I'm Aryon 👋
+
+    What''s the wildest "quick question" you''ve gotten?'
+- at: 2026-10-02 20:25:00+00:00
+  text: 'Hi, I''m Aryon 👋
+
 
     21, motion designer, and co-founder of YN Studios with my friend @rajtilakvi.
 
+
     We make launch films, AI product ads and animated explainers for SaaS and AI brands.
 
-    Here I'll share the process, the client stories, and what actually works.
 
-    Say hi 👇
-- at: 2026-10-03T09:00:00+05:30
-  text: |-
-    Your product isn't boring. Your launch video is.
+    Here I''ll share the process, the client stories, and what actually works.
+
+
+    Say hi 👇'
+  status: posted
+  posted_at: '2026-10-02T20:29:50+00:00'
+  ids:
+  - '2106119486327939576'
+- at: 2026-10-03 09:00:00+05:30
+  text: 'Your product isn''t boring. Your launch video is.
+
 
     Same features. Same UI. Same price. The only difference is whether someone stops scrolling for 3 seconds.
 
-    That's the whole job of motion design.
-- at: 2026-10-03T11:30:00+05:30
-  text: |-
-    5 motion tricks that make any product video feel premium:
+
+    That''s the whole job of motion design.'
+- at: 2026-10-03 11:30:00+05:30
+  text: '5 motion tricks that make any product video feel premium:
+
 
     1. Ease everything. Nothing in real life moves linearly
+
     2. Animate less, hold longer
+
     3. One focal point per frame
+
     4. Cut to the music, not the script
+
     5. Let the UI breathe before you zoom
 
-    Save this for your next launch.
-- at: 2026-10-03T14:00:00+05:30
-  text: |-
-    Our first client video at YN Studios took 3 weeks. It should've taken 4 days.
+
+    Save this for your next launch.'
+- at: 2026-10-03 14:00:00+05:30
+  text: 'Our first client video at YN Studios took 3 weeks. It should''ve taken 4 days.
+
 
     Not because it was hard. Because we said yes to every "small change" without asking a single question.
 
-    Lesson learned: the brief is the project. A vague brief is a free subscription.
-- at: 2026-10-03T17:00:00+05:30
-  text: |-
-    Founders, before you hire anyone for your launch video, answer these 3:
+
+    Lesson learned: the brief is the project. A vague brief is a free subscription.'
+- at: 2026-10-03 17:00:00+05:30
+  text: 'Founders, before you hire anyone for your launch video, answer these 3:
+
 
     1. Who is this video for?
-    2. What's the ONE thing they should remember?
+
+    2. What''s the ONE thing they should remember?
+
     3. Where will it live? Landing page, X, ads?
 
-    You'll save a week of revisions and probably a chunk of your budget.
-- at: 2026-10-03T22:30:00+05:30
-  text: |-
-    Be honest: do you watch product videos with sound on or off?
 
-    Asking because it changes everything about how we design them 👇
+    You''ll save a week of revisions and probably a chunk of your budget.'
+- at: 2026-10-03 22:30:00+05:30
+  text: 'Be honest: do you watch product videos with sound on or off?
+
+
+    Asking because it changes everything about how we design them 👇'
