@@ -1,51 +1,91 @@
 # X post scheduler
 
-Schedules posts to X (Twitter) through the X API. A GitHub Actions workflow
-(`.github/workflows/x-scheduler.yml`) runs every 15 minutes, posts anything in
-`posts.yaml` whose time has passed, and commits the result back so nothing is
-posted twice. No server needed.
+Posts to @aryonmotions on X at scheduled times, using the X API and GitHub
+Actions. Nothing has to run on your computer.
 
-## One-time setup
+## How it works
 
-1. **Get API keys.** At <https://developer.x.com>, create a project and app.
-   - Under *User authentication settings*, set app permissions to **Read and write**.
-   - Under *Keys and tokens*, copy the **API Key and Secret**, then generate an
-     **Access Token and Secret**. Generate the token *after* setting Read and
-     write, or it will be read-only.
-   - Posting needs an API plan that allows `POST /2/tweets`. Check your plan's
-     monthly post limit.
-2. **Add repo secrets.** Go to GitHub → repo *Settings → Secrets and variables → Actions*,
-   and add `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN` and `X_ACCESS_TOKEN_SECRET`.
-3. **Merge to the default branch.** GitHub only runs scheduled workflows from
-   the default branch. On other branches the workflow only validates `posts.yaml`.
+- **`posts.yaml`**: the schedule. People (or Claude) add posts here.
+- **`state.json`**: what has been posted, with links. Only the scheduler writes it.
+- **`.github/workflows/x-scheduler.yml`**: runs the scheduler on GitHub.
+  - A job on `main` waits for each post's time, posts it, and records it in
+    `state.json`.
+  - Every 2 minutes it re-reads `posts.yaml`, so new posts are picked up
+    without restarting anything.
+  - Before GitHub's 6-hour job limit, it starts a fresh run to carry on.
+  - GitHub's cron runs twice an hour as a watchdog, restarting the chain if it
+    ever stops. Timing never depends on cron, because GitHub can skip cron runs
+    for hours.
+  - When nothing is due in the next 48 hours, the job exits. The watchdog or
+    your next push starts it again.
+- **Safety rules:**
+  - Posts more than **6 hours** late are skipped instead of sent.
+  - Separate posts go out at least **20 minutes** apart, so a backlog doesn't
+    land all at once.
+  - A failed post is retried every 2 minutes, up to **5 attempts**.
+  - A half-sent thread resumes where it stopped, without posting duplicates.
 
-## Scheduling a post
+## Adding posts
 
-Add an entry to `posts.yaml` and push:
+Edit `posts.yaml` on `main` (on GitHub: open the file → ✏️ → **Commit changes**):
 
 ```yaml
 posts:
-  - at: 2026-10-05T09:00:00-04:00   # timezone offset is required
-    text: Something new is coming from YN Studios.
+  - at: 2026-10-05T10:00:00+05:30      # +05:30 = IST
+    text: Your post here
 
-  - at: 2026-10-06T12:30:00-04:00
+  - at: 2026-10-06T19:30:00+05:30
     thread:
-      - How we rebuilt our site 🧵
-      - Step 1 ...
+      - First post of the thread 🧵
+      - Second post
 ```
 
-After posting, the scheduler adds `status: posted`, `posted_at` and `ids`
-(the post IDs) to the entry.
+Use `|-` for text with line breaks; the existing entries show the format.
+To post right away, use a time that has already passed (within 6 hours).
 
-- **Late posts:** a post more than 6 hours overdue is marked
-  `status: skipped-late` instead of being sent. To change the limit, set the
-  `X_MAX_LATE_HOURS` env var in the workflow.
-- **Failures:** a failed post (or the rest of a half-sent thread) is retried
-  on the next run.
-- **Timing:** GitHub can delay scheduled runs by a few minutes, so expect
-  posts within about 15–20 minutes of `at`.
-- **Run it now:** start it from the *Actions* tab → *X scheduled posts* → *Run workflow*.
-- **Preview locally:** `pip install -r requirements.txt && python post_scheduled.py --dry-run`
+Rules:
+- 280 characters max per post, with emoji counting as 2.
+- Don't edit an entry after it has posted, or it will be treated as a new post.
+  Delete posted entries instead if the file gets long.
+- If the file has a mistake, the run fails with the reason and nothing posts
+  until it's fixed.
 
-Rewriting the file keeps the comment block at the top, but drops comments
-placed between entries.
+## Checking on it
+
+- **Actions tab → X scheduled posts:** the running job's log shows the next
+  post time, and every post with its link. The **Show schedule** step lists all
+  posts and their status.
+- **`state.json`:** a record of every post, including links and any error.
+- **Run it now:** Actions → X scheduled posts → **Run workflow**.
+- **Account stats:** Actions → X account report → **Run workflow**. It reads
+  up to 100 posts, which costs about $0.50.
+
+## Setup (already done)
+
+1. An X developer app with **Read and write** permissions, and an Access
+   Token generated after setting that.
+2. Repo secrets `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN` and
+   `X_ACCESS_TOKEN_SECRET`.
+3. Credits on the X API pay-per-use plan. Each text post costs about $0.015,
+   and each post with a link about $0.20.
+
+## Local commands
+
+```sh
+pip install -r requirements.txt
+python post_scheduled.py --check     # validate posts.yaml
+python post_scheduled.py --list      # schedule and status
+python -m unittest -v                # tests
+```
+
+## Settings
+
+Set these as `env:` in the workflow's "Post on schedule" step:
+
+| Variable | Default | Meaning |
+|---|---|---|
+| `X_MAX_LATE_HOURS` | 6 | Skip posts later than this |
+| `X_MIN_GAP_MINUTES` | 20 | Minimum spacing between separate posts |
+| `X_MAX_ATTEMPTS` | 5 | Give up on a post after this many failures |
+| `X_POLL_MINUTES` | 2 | How often the job re-reads `posts.yaml` |
+| `X_LOOKAHEAD_HOURS` | 48 | Exit if nothing is due within this window |

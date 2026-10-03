@@ -1,156 +1,112 @@
-# Scheduled X posts.
+# Scheduled X posts for @aryonmotions.
 #
-# Each entry needs `at` (ISO 8601 time WITH a timezone offset) and either
-# `text` (a single post) or `thread` (a list of posts sent as a reply chain).
-# Max 280 characters per post on a standard account.
+# Add an entry with `at` (date and time WITH a timezone; +05:30 is IST) and
+# either `text` (one post) or `thread` (a list of posts sent as a reply chain).
+# Max 280 characters per post; emoji count as 2.
 #
-# The scheduler fills in `status`, `posted_at` and `ids` after it runs;
-# don't add those yourself. To re-send a post, delete those fields.
+#   - at: 2026-10-05T10:00:00+05:30
+#     text: Your post here
 #
-# Example:
+#   - at: 2026-10-06T19:30:00+05:30
+#     thread:
+#       - First post of the thread 🧵
+#       - Second post
 #
-# - at: 2026-10-05T09:00:00-04:00
-#   text: Something new is coming from YN Studios. Stay tuned.
-#
-# - at: 2026-10-06T12:30:00-04:00
-#   thread:
-#     - Here's how we rebuilt our site from scratch 🧵
-#     - Step 1: ...
-#     - Step 2: ...
+# What has been posted is tracked in state.json (written by the scheduler).
+# Don't edit an entry after it has posted; posted entries can be deleted.
+# Use |- for text with line breaks, as in the entries below.
 
 posts:
-- at: 2026-10-02 18:25:00+00:00
-  text: 'Hey @X 👋
+- at: '2026-10-02T23:55:00+05:30'
+  text: |-
+    Hey @X 👋
 
+    I'm Aryon, co-founder and motion designer at YN Studios. Most of my days go into making things move 🎬
 
-    I''m Aryon, co-founder and motion designer at YN Studios. Most of my days go into making things move 🎬
+    Would love to #connect with founders, builders, creators, designers, researchers, freelancers… honestly anyone who's curious.
 
-
-    Would love to #connect with founders, builders, creators, designers, researchers, freelancers… honestly anyone who''s curious.
-
-
-    So what are you working on?'
-  status: posted
-  posted_at: '2026-10-02T18:28:01+00:00'
-  ids:
-  - '2106088831720251648'
-- at: 2026-10-03 20:00:00+05:30
-  thread:
-  - 'Had a client book a call last month.
-
-
-    Agreed to the scope. Agreed to the price. Agreed to the timeline. Even said "you''re the expert, we trust you."
-
-
-    Easiest call ever.
-
-
-    Then the invoice got paid 🧵'
-  - 'Day 1: "quick question"
-
-    Day 2: three voice notes at 11 PM
-
-    Day 4: "can we also get a 15 sec cut for reels? should be quick"
-
-    Day 6: "just checking in" every two hours
-
-
-    Somewhere between the call and the payment, I stopped being their studio and became their employee.'
-  - 'They weren''t a bad client. And honestly, it''s almost always the average-ticket ones.
-
-
-    Big clients have processes. Small ones know you''re doing them a favor.
-
-
-    The ones in the middle? They think they bought you, not the project.'
-  - 'What we changed at YN Studios:
-
-
-    - one feedback doc, one round per stage
-
-    - replies within 24h, weekdays only
-
-    - "quick additions" get a quote, not a yes
-
-    - boundaries go in the contract, not the DMs
-
-
-    Your time is part of the price.
-
-
-    What''s the wildest "quick question" you''ve gotten?'
-- at: 2026-10-02 20:25:00+00:00
-  text: 'Hi, I''m Aryon 👋
-
+    So what are you working on?
+- at: '2026-10-03T01:55:00+05:30'
+  text: |-
+    Hi, I'm Aryon 👋
 
     21, motion designer, and co-founder of YN Studios with my friend @rajtilakvi.
 
-
     We make launch films, AI product ads and animated explainers for SaaS and AI brands.
 
+    Here I'll share the process, the client stories, and what actually works.
 
-    Here I''ll share the process, the client stories, and what actually works.
-
-
-    Say hi 👇'
-  status: posted
-  posted_at: '2026-10-02T20:29:50+00:00'
-  ids:
-  - '2106119486327939576'
-- at: 2026-10-03 09:00:00+05:30
-  text: 'Your product isn''t boring. Your launch video is.
-
+    Say hi 👇
+- at: '2026-10-03T09:00:00+05:30'
+  text: |-
+    Your product isn't boring. Your launch video is.
 
     Same features. Same UI. Same price. The only difference is whether someone stops scrolling for 3 seconds.
 
-
-    That''s the whole job of motion design.'
-  status: posted
-  posted_at: '2026-10-03T06:15:46+00:00'
-  ids:
-  - '2106266942356992219'
-- at: 2026-10-03 11:30:00+05:30
-  text: '5 motion tricks that make any product video feel premium:
-
+    That's the whole job of motion design.
+- at: '2026-10-03T11:30:00+05:30'
+  text: |-
+    5 motion tricks that make any product video feel premium:
 
     1. Ease everything. Nothing in real life moves linearly
-
     2. Animate less, hold longer
-
     3. One focal point per frame
-
     4. Cut to the music, not the script
-
     5. Let the UI breathe before you zoom
 
-
-    Save this for your next launch.'
-  status: posted
-  posted_at: '2026-10-03T06:15:46+00:00'
-  ids:
-  - '2106266943153971691'
-- at: 2026-10-03 14:00:00+05:30
-  text: 'Our first client video at YN Studios took 3 weeks. It should''ve taken 4 days.
-
+    Save this for your next launch.
+- at: '2026-10-03T14:00:00+05:30'
+  text: |-
+    Our first client video at YN Studios took 3 weeks. It should've taken 4 days.
 
     Not because it was hard. Because we said yes to every "small change" without asking a single question.
 
-
-    Lesson learned: the brief is the project. A vague brief is a free subscription.'
-- at: 2026-10-03 17:00:00+05:30
-  text: 'Founders, before you hire anyone for your launch video, answer these 3:
-
+    Lesson learned: the brief is the project. A vague brief is a free subscription.
+- at: '2026-10-03T17:00:00+05:30'
+  text: |-
+    Founders, before you hire anyone for your launch video, answer these 3:
 
     1. Who is this video for?
-
-    2. What''s the ONE thing they should remember?
-
+    2. What's the ONE thing they should remember?
     3. Where will it live? Landing page, X, ads?
 
+    You'll save a week of revisions and probably a chunk of your budget.
+- at: '2026-10-03T20:00:00+05:30'
+  thread:
+  - |-
+    Had a client book a call last month.
 
-    You''ll save a week of revisions and probably a chunk of your budget.'
-- at: 2026-10-03 22:30:00+05:30
-  text: 'Be honest: do you watch product videos with sound on or off?
+    Agreed to the scope. Agreed to the price. Agreed to the timeline. Even said "you're the expert, we trust you."
 
+    Easiest call ever.
 
-    Asking because it changes everything about how we design them 👇'
+    Then the invoice got paid 🧵
+  - |-
+    Day 1: "quick question"
+    Day 2: three voice notes at 11 PM
+    Day 4: "can we also get a 15 sec cut for reels? should be quick"
+    Day 6: "just checking in" every two hours
+
+    Somewhere between the call and the payment, I stopped being their studio and became their employee.
+  - |-
+    They weren't a bad client. And honestly, it's almost always the average-ticket ones.
+
+    Big clients have processes. Small ones know you're doing them a favor.
+
+    The ones in the middle? They think they bought you, not the project.
+  - |-
+    What we changed at YN Studios:
+
+    - one feedback doc, one round per stage
+    - replies within 24h, weekdays only
+    - "quick additions" get a quote, not a yes
+    - boundaries go in the contract, not the DMs
+
+    Your time is part of the price.
+
+    What's the wildest "quick question" you've gotten?
+- at: '2026-10-03T22:30:00+05:30'
+  text: |-
+    Be honest: do you watch product videos with sound on or off?
+
+    Asking because it changes everything about how we design them 👇

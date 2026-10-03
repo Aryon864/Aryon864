@@ -1,23 +1,32 @@
 name: X scheduled posts
 
+# On main, one long-running job waits for each post's time and posts it, then
+# hands over to a fresh run before GitHub's 6h job limit. The cron schedule is
+# only a watchdog: GitHub can skip cron runs for hours, so it isn't relied on
+# for timing. Pushes that change posts are picked up by the running job within
+# a couple of minutes. On other branches the workflow only validates and tests.
+
 on:
   schedule:
-    - cron: "*/15 * * * *" # GitHub may delay scheduled runs by a few minutes
+    - cron: "7,37 * * * *" # watchdog only; timing is handled by the job itself
   workflow_dispatch:
   push:
     paths:
       - "x-scheduler/**"
+      - ".github/workflows/x-scheduler.yml"
 
 concurrency:
-  group: x-scheduler
+  group: x-scheduler-${{ github.ref }}
   cancel-in-progress: false
 
 permissions:
-  contents: write
+  contents: write # commit state.json
+  actions: write # start the next run in the chain
 
 jobs:
   post:
     runs-on: ubuntu-latest
+    timeout-minutes: 350
     steps:
       - uses: actions/checkout@v4
 
@@ -30,22 +39,23 @@ jobs:
       - name: Validate posts.yaml
         run: python x-scheduler/post_scheduled.py --check
 
-      # Only the default branch posts; other branches just validate.
-      - name: Post due entries
+      - name: Unit tests
+        working-directory: x-scheduler
+        run: python -m unittest -q
+
+      - name: Show schedule
+        run: python x-scheduler/post_scheduled.py --list
+
+      - name: Post on schedule
         if: github.ref_name == github.event.repository.default_branch
         env:
           X_API_KEY: ${{ secrets.X_API_KEY }}
           X_API_SECRET: ${{ secrets.X_API_SECRET }}
           X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
           X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
-        run: python x-scheduler/post_scheduled.py
-
-      - name: Save posted status
-        if: always() && github.ref_name == github.event.repository.default_branch
+          GITHUB_TOKEN: ${{ github.token }}
+          PYTHONUNBUFFERED: "1"
         run: |
-          git diff --quiet x-scheduler/posts.yaml && exit 0
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -am "x-scheduler: record posted entries [skip ci]"
-          git pull --rebase
-          git push
+          python x-scheduler/post_scheduled.py --daemon
