@@ -105,6 +105,10 @@ posts:
 
 
     That''s the whole job of motion design.'
+  status: posted
+  posted_at: '2026-10-03T06:15:46+00:00'
+  ids:
+  - '2106266942356992219'
 - at: 2026-10-03 11:30:00+05:30
   text: '5 motion tricks that make any product video feel premium:
 
@@ -121,6 +125,10 @@ posts:
 
 
     Save this for your next launch.'
+  status: posted
+  posted_at: '2026-10-03T06:15:46+00:00'
+  ids:
+  - '2106266943153971691'
 - at: 2026-10-03 14:00:00+05:30
   text: 'Our first client video at YN Studios took 3 weeks. It should''ve taken 4 days.
 
